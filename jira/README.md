@@ -45,20 +45,23 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
+## 安装 react-cli 内含 typescript
 
-## 安装react-cli 内含typescript
 npx create-react-app jira --template typescript
 
 ### 项目配置
 
-安装prettie用于代码格式化，使用该工具让团队成员代码分隔保持一致，减少冲突
+安装 prettie 用于代码格式化，使用该工具让团队成员代码分隔保持一致，减少冲突
 在线地址 https://prettier.io/docs/en/install.html
 
 yarn add --dev --exact prettier
 
-#### 每次git提交时格式化
+#### 手动格式化
+npx prettier --write .
+#### 每次 git 提交时格式化
+
 npx mrm lint-staged 或 npx mrm@2 lint-staged
 
-安装完后会在package.json中增加 lint-staged、
+安装完后会在 package.json 中增加 lint-staged、
 
-lint-staged配置，用于对文件类型进行格式化
+lint-staged 配置，用于对文件类型进行格式化
