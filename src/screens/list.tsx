@@ -1,6 +1,9 @@
-// @ts-nocheck
-import React, { useState } from 'react';
-const List = ({ users, list }) => {
+import { Users, List } from './interface';
+interface Iprops {
+    users: Users[];
+    list: List[];
+}
+const ProjectList = ({ users, list }: Iprops) => {
     return (
         <table>
             <thead>
@@ -13,11 +16,11 @@ const List = ({ users, list }) => {
                 {(list || []).map((item) => (
                     <tr key={item.id}>
                         <td>{item.name}</td>
-                        <td>{users.find((users) => users.id === item.id)?.name || '未知'}</td>
+                        <td>{users.find((user) => user.id === item.id)?.name || '未知'}</td>
                     </tr>
                 ))}
             </tbody>
         </table>
     );
 };
-export default List;
+export default ProjectList;

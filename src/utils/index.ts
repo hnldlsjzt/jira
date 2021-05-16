@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-export const isFalsy = (value) => (value === 0 ? false : !value);
+export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 
 // 传入函数，过滤掉value为空的值，并返回这个对象的copy值
-export const clearObject = (object) => {
+export const clearObject = (object: { [key: string]: unknown }) => {
     const result = { ...object };
     Object.keys(result).forEach((key) => {
         const value = result[key];
@@ -20,14 +20,14 @@ export const clearObject = (object) => {
  */
 
 // 提取useEffeck依赖为空的封装
-export const useMount = (callback) => {
+export const useMount = (callback: () => void) => {
     useEffect(() => {
         callback && callback();
     }, []);
 };
 
 // 防抖
-export const useDebounce = (value, delay) => {
+export const useDebounce = <V>(value: V, delay?: number) => {
     const [debounceValue, setDebounceValue] = useState(value);
 
     useEffect(() => {
