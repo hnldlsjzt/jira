@@ -23,7 +23,7 @@ const ProjectListScreens = () => {
     useEffect(() => {
         fetch(`${apiUrl}/projects?${qs.stringify(clearObject(debounceParam))}`).then(async (res) => {
             if (res.ok) {
-                console.log(res);
+                // console.log(res);
                 setList((await res?.json()) || []);
             }
         });
