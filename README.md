@@ -150,6 +150,54 @@ qs.stringify(params);
 得出结论：JSX元素中的子元素，被编译后，其实就是该元素的children元素的值
 ```
 
+## Hook 相关
+
+**useContext**
+
+-   useContext()参数为 createContex 对象，并返回该 Context 的值。当前才 Context 值有上层组件中距离当前组件最近的<MyContext.Provider>的 value Prop 决定。 useContext 参数必需是 context 对象，在声明时要不就封装在同一个文件或者把 context 对象存起来，传递下去
+-   当上层最近的<MyContext.Provider>更新时，该 Hook 会触发重渲染，并使用最新值。即使祖先使用 React.memo 或 shouldComponentUpdate 也会重新渲染
+-   useContext(MyContext)只是让你能够读取 Context 值和订阅 Context 的变化。仍然需要在上层组件树中使用<MyContext.Provider>为下层提供 context
+
+```react
+const themes = {
+  light: {
+    foreground: "#000000",
+    background: "#eeeeee"
+  },
+  dark: {
+    foreground: "#ffffff",
+    background: "#222222"
+  }
+};
+
+const ThemeContext = React.createContext(themes.light);
+
+function App() {
+  return (
+    <ThemeContext.Provider value={themes.dark}>
+      <Toolbar />
+    </ThemeContext.Provider>
+  );
+}
+
+function Toolbar(props) {
+  return (
+    <div>
+      <ThemedButton />
+    </div>
+  );
+}
+
+function ThemedButton() {
+  const theme = useContext(ThemeContext);
+  return (
+    <button style={{ background: theme.background, color: theme.foreground }}>
+      I am styled by theme context!
+    </button>
+  );
+}
+```
+
 ## 用 Custom Hook 提取并复用代码
 
 **Custom Hook 是 React 中最新也是最优秀的组件代码复用方案**
