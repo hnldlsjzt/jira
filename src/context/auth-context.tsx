@@ -1,10 +1,23 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 import * as auth from 'auth-provider';
 import { Users } from 'screens/project-list/interface';
+import { http } from 'utils/http';
+import { useMount } from 'utils';
 interface AuthForm {
     username: string;
     password: string;
 }
+
+const bootstrapUser = async () => {
+    let user = null;
+    const token = auth.getToken();
+    if (token) {
+        // me接口会返回token信息
+        const data = await http('me', { token });
+        user = data.user;
+    }
+    return user;
+};
 
 const AuthContext =
     createContext<
@@ -25,6 +38,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const register = (form: AuthForm) => auth.register(form).then(setUser);
     const logout = () => auth.logout().then(() => setUser(null));
 
+    // 初始化时调用bootstrap,查询是否有token 和 有token时是否过期
+    useMount(() => {
+        bootstrapUser().then(setUser);
+    });
     return <AuthContext.Provider children={children} value={{ user, login, register, logout }} />;
 };
 
