@@ -2,7 +2,7 @@ import { FormEvent } from 'react';
 import { useAuth } from 'context/auth-context';
 // import Form from 'antd/lib/form/Form';
 import { Input, Form, Button } from 'antd';
-
+import { LongButton } from 'unauthenticated-app/index';
 export const LoginScreen = () => {
     const { login, user } = useAuth();
 
@@ -55,9 +55,9 @@ export const LoginScreen = () => {
                 <Input type="password" placeholder="请输入密码" />
             </Form.Item>
             <Form.Item>
-                <Button htmlType="submit" type="primary">
+                <LongButton htmlType="submit" type="primary">
                     登录
-                </Button>
+                </LongButton>
             </Form.Item>
 
             {/* <div>
