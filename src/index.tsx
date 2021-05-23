@@ -4,13 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { loadDevTools } from 'jira-dev-tool';
+import 'antd/dist/antd.less';
+import zhCN from 'antd/lib/locale/zh_CN';
+import { ConfigProvider } from 'antd';
 import { AppProviders } from 'context/index';
 loadDevTools(() => {
     ReactDOM.render(
         <React.StrictMode>
-            <AppProviders>
-                <App />
-            </AppProviders>
+            <ConfigProvider locale={zhCN}>
+                <AppProviders>
+                    <App />
+                </AppProviders>
+            </ConfigProvider>
         </React.StrictMode>,
         document.getElementById('root')
     );

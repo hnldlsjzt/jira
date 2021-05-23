@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Users, List, Param } from './interface';
+import { Input, Select } from 'antd';
 
+const { Option } = Select;
 interface Iprops {
     users: Users[];
     param: Param;
@@ -8,17 +10,17 @@ interface Iprops {
 }
 const SearchPanel = ({ users, param, setParam }: Iprops) => {
     return (
-        <form>
-            <input value={param.name} onChange={(evt) => setParam({ ...param, name: evt?.target.value })} />
-            <select value={param.personId} onChange={(evt) => setParam({ ...param, personId: evt?.target?.value })}>
-                <option value="">负责人</option>
+        <div style={{ display: 'flex' }}>
+            <Input value={param.name} onChange={(evt) => setParam({ ...param, name: evt?.target?.value })} />
+            <Select value={param.personId} onChange={(value) => setParam({ ...param, personId: value })}>
+                <Option value="">负责人</Option>
                 {(users || []).map((item) => (
-                    <option key={item.id} value={item.id}>
+                    <Option key={item.id} value={item.id}>
                         {item.name}
-                    </option>
+                    </Option>
                 ))}
-            </select>
-        </form>
+            </Select>
+        </div>
     );
 };
 
