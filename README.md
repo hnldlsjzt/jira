@@ -150,6 +150,16 @@ qs.stringify(params);
 得出结论：JSX元素中的子元素，被编译后，其实就是该元素的children元素的值
 ```
 
+**组件化方式使用 SVG**
+
+通常把 SVG 文件也是使用 `img` 标签来渲染，但这会损失 SVG 的特性。
+在 React 中，把 SVG 导入的方式改成大写开头，以组件的形式渲染，就可以使用 SVG 特性，并设置宽高和颜色了。
+使用 ReactComponent 来告诉应用程序，这是一个 SVG 组件，而不是它的文件名
+
+```
+import { ReactComponent as AsoftwareLogo } from 'assets/software-logo.svg'
+```
+
 ## Hook 相关
 
 **useContext**
@@ -310,3 +320,61 @@ interface Iprops {
 
 -   当函数参数有默认值时，参数会变为可选
 -   当函数参数有解构时，不能使用?（参数可选符号）
+
+## css in js 如何在项目中组织我们的 css
+
+使用 create-react-app 创建的项目，一般使用两种方式来做自定义配置
+
+-   yarn add @craco/craco（社区方案）
+-   [yarn run eject](https://create-react-app.dev/docs/available-scripts/#npm-run-eject) （官方提供的命令，把所有内建的配置全部暴露出来）
+
+CSS-in-JS 并不是指某一个具体的库，是指组织 CSS 代码的一种方式，代表库有 style-component 和 emotion
+
+### 传统 CSS 的缺陷
+
+**1.缺乏模块组织**
+
+**2.缺乏作用域**
+
+传统的 CSS 只有一个全局作用域。写一个 class 可以匹配到全局的任意元素。随着项目成长，CSS 会变得越来越难以组织，最终可能会失控。 CSS-in-JS 可以通过生成独特的选择符，来实现作用域的效果。
+
+**3.隐式依赖，让样式难以追踪**
+
+传统的 CSS 很容易在不经意间就污染到其他 HTML 元素，并且还难以追踪（可能元素重名，权重不够导致被影响到）
+
+而 CSS-in-JS 的方法很简单直接
+
+```react
+export const Title = styled.h1`
+	color:green;
+`
+<Title>
+	我是啥色啊，绿色呀
+</Title>
+```
+
+**4.没有变量**
+
+传统 CSS 规则是没有变量，但在 CSS-in-JS 中可以很方便的控制变量，甚至可以使用 JS 的条件判断
+
+**5.传统 CSS 和 HTML 耦合**
+
+当想修改 HTML 类名时，响应的 CSS 规则也需要更改
+
+CSS-in-JS 可以只修改一次即可
+
+## Emotion 介绍
+
+安装,需要 2 个库
+
+```
+yarn add @emotion/react @emotion/styled
+```
+
+vscode 相关插件
+
+```
+vscode-styled-components
+```
+
+1.传统的 React 的 style 不支持伪类，Emotion 支持
